@@ -1,0 +1,17 @@
+[user]
+	name = 
+	email = 
+	signingKey = xxxxxxxx
+[core]
+	editor = vim
+[push]
+	default = current
+[pull]
+	default = current
+[diff]
+[mergetool]
+	keepbackup = false
+[merge]
+	tool = p4merge
+[commit]
+	gpgsign = true
