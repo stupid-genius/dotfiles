@@ -14,4 +14,4 @@
 [merge]
 	tool = p4merge
 [commit]
-	gpgsign = true
+	gpgsign = false
