@@ -9,9 +9,10 @@
 [pull]
 	default = current
 [diff]
-[mergetool]
-	keepbackup = false
+	tool = vimdiff
 [merge]
 	tool = p4merge
+[mergetool]
+	keepbackup = false
 [commit]
 	gpgsign = false
