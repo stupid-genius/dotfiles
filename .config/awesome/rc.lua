@@ -41,12 +41,16 @@ end
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
-beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
+--beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
+beautiful.init(gears.filesystem.get_themes_dir() .. "xresources/theme.lua")
+--beautiful.init("~/.config/awesome/themes/dremora/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "xterm"
-editor = os.getenv("EDITOR") or "nano"
+-- terminal = "xterm"
+terminal = "gnome-terminal"
+editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
+lockscreen = function() awful.util.spawn("slock") end
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -95,7 +99,8 @@ end
 -- Create a launcher widget and a main menu
 myawesomemenu = {
    { "hotkeys", function() return false, hotkeys_popup.show_help end},
-   { "manual", terminal .. " -e man awesome" },
+--   { "manual", terminal .. " -e man awesome" },
+   { "manual", "xterm -e man awesome" },
    { "edit config", editor_cmd .. " " .. awesome.conffile },
    { "restart", awesome.restart },
    { "quit", function() awesome.quit() end}
@@ -118,7 +123,7 @@ mykeyboardlayout = awful.widget.keyboardlayout()
 
 -- {{{ Wibar
 -- Create a textclock widget
-mytextclock = wibox.widget.textclock()
+mytextclock = wibox.widget.textclock("%a %b %d %l:%M%P", 15)
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
@@ -178,12 +183,26 @@ end
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
 screen.connect_signal("property::geometry", set_wallpaper)
 
+local battery_widget = require("widgets.batteryarc-widget.batteryarc")
+local cpu_widget = require("widgets.cpu-widget.cpu-widget")
+local ram_widget = require("widgets.ram-widget.ram-widget")
+local volume_widget = require("widgets.volumebar-widget.volumebar")
+--local net_widgets = require("widgets.net_widgets.wireless")
+local net_widgets = require("widgets/net_widgets")
+
+local vert_sep = wibox.widget {
+    widget = wibox.widget.separator,
+    orientation = "vertical",
+    forced_width = 4,
+    color = "#353535",
+}
+
 awful.screen.connect_for_each_screen(function(s)
     -- Wallpaper
     set_wallpaper(s)
 
     -- Each screen has its own tag table.
-    awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])
+    awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[9])
 
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
@@ -216,8 +235,16 @@ awful.screen.connect_for_each_screen(function(s)
         s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
-            mykeyboardlayout,
+            -- mykeyboardlayout,
             wibox.widget.systray(),
+			vert_sep,
+			cpu_widget,
+			ram_widget,
+			battery_widget,
+			vert_sep,
+			--volume_widget,
+			net_widgets.wireless({interface="wlp7s0"}),
+			vert_sep,
             mytextclock,
             s.mylayoutbox,
         },
@@ -331,7 +358,8 @@ globalkeys = gears.table.join(
               {description = "lua execute prompt", group = "awesome"}),
     -- Menubar
     awful.key({ modkey }, "p", function() menubar.show() end,
-              {description = "show the menubar", group = "launcher"})
+              {description = "show the menubar", group = "launcher"}),
+	awful.key({ modkey, "Mod1" }, "l", lockscreen )
 )
 
 clientkeys = gears.table.join(
@@ -449,7 +477,8 @@ awful.rules.rules = {
                      keys = clientkeys,
                      buttons = clientbuttons,
                      screen = awful.screen.preferred,
-                     placement = awful.placement.no_overlap+awful.placement.no_offscreen
+                     placement = awful.placement.no_overlap+awful.placement.no_offscreen,
+                   size_hints_honor = false
      }
     },
 
