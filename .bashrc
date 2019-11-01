@@ -116,6 +116,7 @@ if ! shopt -oq posix; then
 fi
 
 export EDITOR=vim
+export HISTTIMEFORMAT="%F %T"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
