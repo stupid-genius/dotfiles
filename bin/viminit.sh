@@ -1,5 +1,6 @@
 #!/bin/bash
 
+cp gitcommit.vim ~/.vim/after/ftplugin/
 git clone https://github.com/vim-airline/vim-airline ~/.vim/pack/dist/start/vim-airline
 vim -c 'helptags ~/.vim/pack/dist/start/vim-airline/doc' -c quit
 mkdir -p ~/.vim/pack/tpope/start
