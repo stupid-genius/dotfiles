@@ -16,3 +16,6 @@
 	keepbackup = false
 [commit]
 	gpgsign = false
+[rerere]
+	enabled = true
+
