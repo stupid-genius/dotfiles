@@ -1,19 +1,17 @@
 #!/bin/bash
 
-cp gitcommit.vim ~/.vim/after/ftplugin/
-git clone https://github.com/vim-airline/vim-airline ~/.vim/pack/dist/start/vim-airline
-vim -c 'helptags ~/.vim/pack/dist/start/vim-airline/doc' -c quit
-mkdir -p ~/.vim/pack/tpope/start
-cd ~/.vim/pack/tpope/start
-git clone https://tpope.io/vim/surround.git
-vim -u NONE -c "helptags surround/doc" -c q
-git clone https://github.com/vimwiki/vimwiki.git ~/.vim/pack/plugins/start/vimwiki
-vim -c 'helptags ~/.vim/pack/plugins/start/vimwiki/doc' -c quit
-mkdir -p ~/.vim/pack/git-plugins/start
-git clone --depth 1 https://github.com/dense-analysis/ale.git ~/.vim/pack/git-plugins/start/ale
-#mkdir -p ~/.vim/pack/vim-lsc/start
-#git clone --depth=1 https://github.com/natebosch/vim-lsc.git ~/.vim/pack/vim-lsc/start/vim-lsc
+mkdir -p ~/.vim/after/ftplugin
+echo 'setlocal colorcolumn=72' > ~/.vim/after/ftplugin/gitcommit.vim
 
-#mkdir -p ~/.vim/bin; cd $_
-#npm i bash-language-server
-#git clone https://github.com/stupid-genius/javascript-typescript-langserver.git
+VIMPACK=~/.vim/pack/dist/start
+
+git clone --depth 1 https://github.com/dense-analysis/ale.git $VIMPACK/ale
+git clone --depth 1 https://github.com/editorconfig/editorconfig-vim.git $VIMPACK/editorconfig
+git clone --depth 1 https://github.com/tpope/vim-commentary.git $VIMPACK/commentary
+git clone --depth 1 https://github.com/tpope/vim-surround.git $VIMPACK/surround
+git clone --depth 1 https://github.com/vim-airline/vim-airline $VIMPACK/airline
+git clone --depth 1 https://github.com/vim-test/vim-test.git $VIMPACK/vimtest
+git clone --depth 1 https://github.com/vimwiki/vimwiki.git $VIMPACK/vimwiki
+
+vim -c 'helptags ALL' -c quit
+

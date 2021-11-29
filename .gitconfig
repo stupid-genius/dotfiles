@@ -1,13 +1,15 @@
 [user]
 	name = Allen Ng
 	email = accounts@stupid-genius.com
-	signingKey = xxxxxxxx
+	signingKey = XXXXXXXX
 [core]
 	editor = vim
+	autocrlf = false
 [push]
 	default = current
 [pull]
 	default = current
+	ff = only
 [diff]
 	tool = vimdiff
 [merge]
@@ -15,7 +17,13 @@
 [mergetool]
 	keepbackup = false
 [commit]
-	gpgsign = false
+	gpgsign = true
 [rerere]
 	enabled = true
+[alias]
+	heads = for-each-ref --format='%(refname:short) - %(subject)' refs/heads
+	ll = "!f(){ git log $(git merge-base master $1)..$@;};f"
+	ls = log --oneline
+	name = "!f(){ basename `git rev-parse --show-toplevel`; git $@; echo;};f"
+	npm = !npm
 
