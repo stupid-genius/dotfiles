@@ -3,7 +3,8 @@ set splitbelow splitright hlsearch nu rnu
 set foldlevelstart=1
 set foldmethod=indent
 set history=250
-set termwinsize=20x0
+set termwinsize=15x0
+set visualbell t_vb=
 syntax on
 filetype plugin indent on
 cmap w!! w !sudo tee > /dev/null %
@@ -19,3 +20,9 @@ nmap <silent> t<C-s> :TestSuite<CR>
 " nmap <silent> t<C-l> :TestLast<CR>
 " nmap <silent> t<C-g> :TestVisit<CR>
 
+packadd! dracula
+colorscheme dracula
+highlight ALEWarningLine ctermbg=darkblue
+highlight ALEErrorLine ctermbg=darkred
+highlight DiffChange ctermbg=darkmagenta
+highlight DiffAdd ctermbg=darkblue

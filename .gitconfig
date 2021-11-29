@@ -22,7 +22,7 @@
 	enabled = true
 [alias]
 	heads = for-each-ref --format='%(refname:short) - %(subject)' refs/heads
-	ll = "!f(){ git log $(git merge-base master $1)..$@;};f"
+	ll = "!f(){ git log $(git merge-base master ${1-@})..${@-@};};f"
 	ls = log --oneline
 	name = "!f(){ basename `git rev-parse --show-toplevel`; git $@; echo;};f"
 	npm = !npm
