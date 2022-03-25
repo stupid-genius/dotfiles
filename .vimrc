@@ -8,7 +8,7 @@ set visualbell t_vb=
 syntax on
 filetype plugin indent on
 cmap w!! w !sudo tee > /dev/null %
-map gf :e <cfile><CR>
+" map gf :e <cfile><CR>
 
 let g:EditorConfig_exclude_patterns = ['.git/COMMIT_EDITMSG']
 let g:EditorConfig_max_line_indicator = "none"
