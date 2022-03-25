@@ -21,6 +21,7 @@
 [rerere]
 	enabled = true
 [alias]
+	diffi = diff --cached
 	heads = for-each-ref --format='%(refname:short) - %(subject)' refs/heads
 	ll = "!f(){ git log $(git merge-base master ${1-@})..${@-@};};f"
 	ls = log --oneline
